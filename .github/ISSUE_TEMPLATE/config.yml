@@ -1,0 +1,24 @@
+# blank_issues_enabled: false removes the "Open a blank issue" button, so every report
+# goes through a structured form (and therefore carries the information you need).
+blank_issues_enabled: false
+
+# Optional: point people somewhere better than a blank issue. Uncomment and edit the
+# entries below. Each entry REQUIRES exactly these three keys: name, url, about.
+# GitHub rejects the whole file if a key is missing or if a URL is not http(s).
+#
+# contact_links:
+#   - name: Questions and usage help
+#     url: https://github.com/icrefin/dsh-model-retry-settings/discussions
+#     about: Ask and answer usage questions, and share what you built, in Discussions.
+#
+#   - name: Security vulnerability
+#     url: https://github.com/icrefin/dsh-model-retry-settings/security/advisories/new
+#     about: Report a vulnerability privately. Never open a public issue for security.
+#
+#   - name: DeepSeek Harness itself
+#     url: https://github.com/deepseek-ai/deepseek-harness
+#     about: Report harness or retry-executor behaviour to the DeepSeek Harness project.
+#
+#   - name: Contributing guide
+#     url: https://github.com/icrefin/dsh-model-retry-settings/blob/main/.github/CONTRIBUTING.md
+#     about: Read how to set up the project and submit a pull request.

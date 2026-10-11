@@ -1,0 +1,14 @@
+# build artifacts of the verification harness
+.test-workspace/
+
+# isolated dsh home created by scripts/dev-profile.sh (contains credentials.yaml)
+.dev-home/
+
+# an isolated dsh home created by hand during development
+.scratch/
+
+# the packed tarball scripts/install.sh (re)generates
+dist/
+
+node_modules/
+npm-debug.log*

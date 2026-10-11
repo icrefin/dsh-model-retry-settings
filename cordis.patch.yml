@@ -1,0 +1,18 @@
+# dsh-model-retry-settings bundle patch: inserts the plugin row into the web
+# profile roster. Applied as a profile bundle layer (the `dsh.bundle.patch`
+# manifest field) over dsh-base; activate with
+# `dsh plugin --profile <name> add dsh-model-retry-settings`.
+#
+# The row is a bare plugin by package name: the node half (exports ".") runs in
+# the host process and rewrites the retry policy the `agent/request-error`
+# waterfall is about to hand to the retry executor, while the `dsh.client`
+# declaration in package.json makes the browser half (exports "./client",
+# served at /plugins/<id>/client.js) render the preference on the Model
+# settings page.
+#
+# The entry id is also the settings namespace the browser half writes: dsh
+# 0.1.7+ makes a Loader entry's Config *be* its settings namespace, so the id
+# here, the package name, and the namespace the client asks for must agree.
+- insert:
+    - id: model-retry-settings
+      name: 'dsh-model-retry-settings'
