@@ -12,7 +12,10 @@
  *                                 installed from npm: the browser-only
  *                                 collaborators the node build of
  *                                 ui-primitives / client-store still import
- *   node_modules/@deepseek-ai/*   extracted from the installation's asar
+ *   node_modules/@deepseek-ai/*   extracted from the installation's asar, or —
+ *                                 for the client packages the web shell inlines
+ *                                 as platform seeds — installed from npm at the
+ *                                 installation's own version
  *   package.json                  `"type": "module"` for the workspace
  *   plugin                        a SYMLINK to this package's own `lib/`
  *
@@ -90,6 +93,59 @@ console.log("setup: plugin/lib -> this package's own lib/ (symlink, so no copy c
 //#endregion
 
 //#region 2 — the browser-only collaborators, from npm (prunes node_modules)
+//
+// The dsh web shell inlines a few client packages as *platform seeds* instead of
+// installing them under `node_modules`: `ui-primitives`, `ui-slots`, and
+// `client-store` are bundled into `@deepseek-ai/dsh-web-frontend`'s dist. The
+// installation therefore has no directory to extract for them, and the published
+// packages — the same artifacts the bundle was built from — are pinned to this
+// installation's own version and fetched alongside the collaborators.
+
+const asar = openAsar(process.env.DSH_ASAR ?? DEFAULT_ASAR)
+
+/**
+ * The dsh release this installation carries.
+ *
+ * Every `@deepseek-ai/dsh-*` package ships in lockstep, so the installation's
+ * own manifest states the release for all of them.
+ */
+const sdkVersion = JSON.parse(asar.readFile('/dsh/package.json').toString('utf8')).version
+
+/** Archive path of one dsh SDK package's directory. */
+const asarPrefix = (name) => `/dsh/node_modules/@deepseek-ai/${name}/`
+
+/** shipped: dsh SDK packages this installation still installs as their own directory. */
+const shipped = DSH_PACKAGES.filter((name) =>
+  asar.entries.some((entry) => entry.path.startsWith(asarPrefix(name))),
+)
+/** fetched: dsh SDK packages the web shell bundles instead. */
+const fetched = DSH_PACKAGES.filter((name) => !shipped.includes(name))
+if (fetched.length > 0) {
+  console.log(`setup: not installed by this dsh build, fetching from npm@${sdkVersion}: ${fetched.join(' ')}`)
+}
+for (const name of fetched) NPM_PACKAGES.push(`@deepseek-ai/${name}@${sdkVersion}`)
+
+/**
+ * A directory whose manifest names a different version than the spec asks for is
+ * stale, not present. Without this, a workspace prepared for an older dsh keeps
+ * its old packages — and the SDK the tests exercise would not be the installed one.
+ */
+const stale = NPM_PACKAGES.filter((spec) => {
+  const name = packageNameOf(spec)
+  const wanted = spec.slice(spec.lastIndexOf('@') + 1)
+  if (!/^\d+\.\d+\.\d+/.test(wanted)) return false
+  const file = path.join(modules, name, 'package.json')
+  if (!fs.existsSync(file)) return false
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8')).version !== wanted
+  } catch {
+    return true
+  }
+})
+for (const name of stale.map(packageNameOf)) {
+  console.log(`setup: removing stale ${name}`)
+  fs.rmSync(path.join(modules, name), { recursive: true, force: true })
+}
 
 const missing = NPM_PACKAGES.filter((spec) => !fs.existsSync(path.join(modules, packageNameOf(spec), 'package.json')))
 if (missing.length > 0) {
@@ -111,12 +167,11 @@ if (missing.length > 0) {
 
 //#region 3 — the real dsh SDK, out of the installation
 
-const asar = openAsar(process.env.DSH_ASAR ?? DEFAULT_ASAR)
 console.log(`setup: reading ${asar.archive}`)
-for (const name of DSH_PACKAGES) {
+for (const name of shipped) {
   const destination = path.join(modules, '@deepseek-ai', name)
   fs.rmSync(destination, { recursive: true, force: true })
-  const written = asar.extract(`/dsh/node_modules/@deepseek-ai/${name}/`, destination)
+  const written = asar.extract(asarPrefix(name), destination)
   console.log(`setup:   @deepseek-ai/${name} (${written} files)`)
 }
 asar.close()

@@ -60,6 +60,19 @@ export function openAsar(archive = process.env.DSH_ASAR ?? DEFAULT_ASAR) {
   walk(tree, '')
 
   /**
+   * Read one file out of the archive.
+   * @param entryPath - exact archive path, e.g. `/dsh/package.json`.
+   * @returns the file's bytes.
+   */
+  function readFile(entryPath) {
+    const entry = entries.find((item) => item.path === entryPath)
+    if (entry === undefined) throw new Error(`asar: no entry at ${entryPath} in ${archive}`)
+    const buffer = Buffer.alloc(entry.size)
+    fs.readSync(fd, buffer, 0, entry.size, baseOffset + entry.offset)
+    return buffer
+  }
+
+  /**
    * Extract every entry under one prefix.
    * @param prefix - archive path prefix, e.g. `/dsh/node_modules/react/`.
    * @param destination - directory the prefix's contents are written under.
@@ -87,5 +100,5 @@ export function openAsar(archive = process.env.DSH_ASAR ?? DEFAULT_ASAR) {
     return entries.filter((entry) => pattern.test(entry.path)).map((entry) => entry.path)
   }
 
-  return { archive, entries, extract, list, close: () => fs.closeSync(fd) }
+  return { archive, entries, readFile, extract, list, close: () => fs.closeSync(fd) }
 }

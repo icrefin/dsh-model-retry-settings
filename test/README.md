@@ -1,9 +1,9 @@
 # Verification harness
 
 Two suites, both driven against the **real** dsh SDK rather than a mock: the
-`@deepseek-ai/*` packages are extracted from the installed `app.asar` at setup
-time, and the plugin is reached through a symlink to its own `lib/`, so nothing
-under test can drift from what `package.json` exports.
+`@deepseek-ai/*` packages are taken from the installed `app.asar` at setup time,
+and the plugin is reached through a symlink to its own `lib/`, so nothing under
+test can drift from what `package.json` exports.
 
 ```sh
 scripts/verify.sh
@@ -11,7 +11,7 @@ scripts/verify.sh
 
 | File | Role |
 |---|---|
-| `setup.mjs` | builds `.test-workspace/` (npm collaborators, extracted SDK, plugin symlink) |
+| `setup.mjs` | builds `.test-workspace/` (npm collaborators, SDK from the asar or from npm, plugin symlink) |
 | `asar.mjs` | minimal `app.asar` reader |
 | `dsh-hooks.mjs` | Node module hooks: anchors bare imports at the harness, stubs browser-only collaborators |
 | `host.test.mjs` | the Host half (17 checks) |
@@ -60,6 +60,13 @@ scripts/verify.sh
 - The first run needs network access: `ui-primitives` and `client-store` are the
   *node* builds of browser packages, so Node must resolve `react`, `react-dom`,
   `clsx`, `zustand`, `immer`, and `use-sync-external-store` directly.
+- A dsh release may inline a client package into the web shell as a *platform
+  seed* instead of installing it under the app's `node_modules` — in
+  `0.2.1-rc.3` that is true of `dsh-client-ui-primitives`, `dsh-client-ui-slots`,
+  and `dsh-client-store`. There is no directory to extract for those, so
+  `setup.mjs` pins them to the installation's own version (`/dsh/package.json`)
+  and fetches them from npm: the same published artifacts the shell bundle was
+  built from.
 - `dsh-hooks.mjs` stubs the packages the Vite web build bundles away
   (`shiki`, `katex`, `simple-icons`, the `micromark-*` family, `anser`, `diff`),
   and maps `.module.css` imports to a class-name-echoing object. None of those
