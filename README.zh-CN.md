@@ -4,12 +4,12 @@
 [English](README.md) | **简体中文**
 
 [![License](https://img.shields.io/github/license/icrefin/dsh-model-retry-settings?style=flat-square)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/releases/tag/v1.0.1)
+[![Release](https://img.shields.io/github/v/release/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/releases/tag/v1.0.2)
 [![Last commit](https://img.shields.io/github/last-commit/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/commits/main)
 [![Stars](https://img.shields.io/github/stars/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/stargazers)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/pulls)
 [![Node](https://img.shields.io/badge/node-%3E%3D22.19-339933?style=flat-square&logo=node.js)](https://nodejs.org)
-[![dsh](https://img.shields.io/badge/dsh-0.2.1--rc.3-4B5563?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
+[![dsh](https://img.shields.io/badge/dsh-0.2.1--rc.5-4B5563?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 
 **Request retries** —— **Settings → Model** 页面最下方的一张卡片，决定模型请求失败后
 重试多少次，对本配置中的所有提供方生效。
@@ -92,7 +92,7 @@ ctx.on('agent/request-error', (payload, next) => {
 
 | 要求 | 原因 |
 |---|---|
-| DeepSeek Harness `0.2.1-rc.3` | 本插件构建与验证所针对的版本；卡片需要 Models 设置页的 `settings.models.footer` 位置 |
+| DeepSeek Harness `>=0.2.1-rc.5 <0.2.2-0` | 本插件构建与验证所针对的区间（0.2.1-rc.5）；卡片需要 Models 设置页的 `settings.models.footer` 位置 |
 | Node `^22.19.0 \|\| >=24.0.0` | `package.json`（`engines`）声明的范围 |
 | 组合了 `@deepseek-ai/dsh-llm-retry` | 重试执行器本身；它随 `dsh-base` 一起发布，所以每个原版 profile 都有 |
 | Google Chrome，仅 `node tools/preview.mjs` 需要 | 预览工具在 GUI 之外渲染卡片并用无头 Chrome 截图；插件本身和两套测试都不需要浏览器 |
@@ -217,4 +217,4 @@ MIT —— 见 [LICENSE](./LICENSE)。
 
 > 如果这张卡片帮你省下了一次手改提供方配置，一颗 ⭐ star 能帮更多 dsh 用户发现它。
 
-<sub>针对 DeepSeek Harness 0.2.1-rc.3 构建 · MIT</sub>
+<sub>针对 DeepSeek Harness 0.2.1-rc.5 构建 · MIT</sub>

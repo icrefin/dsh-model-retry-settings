@@ -62,7 +62,7 @@ scripts/verify.sh
   `clsx`, `zustand`, `immer`, and `use-sync-external-store` directly.
 - A dsh release may inline a client package into the web shell as a *platform
   seed* instead of installing it under the app's `node_modules` — in
-  `0.2.1-rc.3` that is true of `dsh-client-ui-primitives`, `dsh-client-ui-slots`,
+  `0.2.1-rc.5` that is true of `dsh-client-ui-primitives`, `dsh-client-ui-slots`,
   and `dsh-client-store`. There is no directory to extract for those, so
   `setup.mjs` pins them to the installation's own version (`/dsh/package.json`)
   and fetches them from npm: the same published artifacts the shell bundle was

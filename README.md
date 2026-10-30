@@ -4,12 +4,12 @@ A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) plug
 **English** | [简体中文](README.zh-CN.md)
 
 [![License](https://img.shields.io/github/license/icrefin/dsh-model-retry-settings?style=flat-square)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/releases/tag/v1.0.1)
+[![Release](https://img.shields.io/github/v/release/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/releases/tag/v1.0.2)
 [![Last commit](https://img.shields.io/github/last-commit/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/commits/main)
 [![Stars](https://img.shields.io/github/stars/icrefin/dsh-model-retry-settings?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/stargazers)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/icrefin/dsh-model-retry-settings/pulls)
 [![Node](https://img.shields.io/badge/node-%3E%3D22.19-339933?style=flat-square&logo=node.js)](https://nodejs.org)
-[![dsh](https://img.shields.io/badge/dsh-0.2.1--rc.3-4B5563?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
+[![dsh](https://img.shields.io/badge/dsh-0.2.1--rc.5-4B5563?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 
 **Request retries** — one card at the foot of **Settings → Model** that decides
 how many times a failed model request is retried, for every provider in the
@@ -105,7 +105,7 @@ Consequences worth knowing:
 
 | Requirement | Why |
 |---|---|
-| DeepSeek Harness `0.2.1-rc.3` | the version this plugin is built and verified against; the card needs the Models settings page's `settings.models.footer` seat |
+| DeepSeek Harness `>=0.2.1-rc.5 <0.2.2-0` | the range this plugin is built and verified against (0.2.1-rc.5); the card needs the Models settings page's `settings.models.footer` seat |
 | Node `^22.19.0 \|\| >=24.0.0` | the range declared in `package.json` (`engines`) |
 | `@deepseek-ai/dsh-llm-retry` composed | the retry executor itself; it ships inside `dsh-base`, so every stock profile has it |
 | Google Chrome, for `node tools/preview.mjs` only | the preview harness renders the card outside the GUI and screenshots it with headless Chrome; neither the plugin nor the suites need a browser |
@@ -252,4 +252,4 @@ MIT — see [LICENSE](./LICENSE).
 > If this card saves you a hand-edit of provider configuration, a ⭐ star helps
 > other dsh users find it.
 
-<sub>Built against DeepSeek Harness 0.2.1-rc.3 · MIT</sub>
+<sub>Built against DeepSeek Harness 0.2.1-rc.5 · MIT</sub>
