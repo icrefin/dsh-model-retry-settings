@@ -71,6 +71,7 @@ const STUBS = {
   'micromark-core-commonmark': names(['attention']),
   'micromark-util-character': names(['markdownLineEnding', 'unicodePunctuation']),
   'micromark-util-classify-character': names(['classifyCharacter']),
+  'micromark-util-decode-string': names(['decodeString']),
   'micromark-util-symbol': names(['codes', 'constants', 'types']),
   'micromark-factory-space': names(['factorySpace']),
   'micromark-util-sanitize-uri': names(['normalizeUri']),

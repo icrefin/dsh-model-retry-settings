@@ -25,8 +25,8 @@ There is **no build step**: `lib/index.js` (host half) and `lib/client.js`
 (browser half) are hand-authored in the forms dsh loads them in, and they are the
 shipped bundle. Clone the repository and you already have the package.
 
-Node `^22.19.0 || >=24.0.0` is what `package.json` declares (`engines`); the
-verification harness is run on the Node 22 line.
+Node `>=24.9.0` is what `package.json` declares (`engines`); the
+verification harness is run on the Node 24 line.
 
 ```bash
 git clone https://github.com/icrefin/dsh-model-retry-settings.git
@@ -193,8 +193,8 @@ Open an issue or a discussion on the repository.
 **没有构建步骤**：`lib/index.js`（宿主侧）与 `lib/client.js`（浏览器侧）都是按 dsh 加载
 它们的形式手写的，本身就是发布的 bundle。克隆下来就已经拿到完整的包。
 
-`package.json`（`engines`）声明的是 Node `^22.19.0 || >=24.0.0`；验证用的测试跑在
-Node 22 这条线上。
+`package.json`（`engines`）声明的是 Node `>=24.9.0`；验证用的测试跑在
+Node 24 这条线上。
 
 ```bash
 git clone https://github.com/icrefin/dsh-model-retry-settings.git

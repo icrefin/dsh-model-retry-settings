@@ -1,6 +1,6 @@
 {
   "name": "dsh-model-retry-settings",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Max-retries control for DeepSeek Harness: adds one preference card to the web client's Settings → Model page that sets how many times a failed model request is retried.",
   "keywords": [
     "dsh",
@@ -15,8 +15,8 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": "^22.19.0 || >=24.0.0",
-    "dsh": ">=0.2.1-rc.5 <0.2.2-0"
+    "node": ">=24.9.0",
+    "dsh": ">=0.2.2-rc.1 <0.2.3-0"
   },
   "main": "lib/index.js",
   "exports": {
@@ -55,10 +55,10 @@
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^4.0.5",
-    "@deepseek-ai/dsh-client-locale": "0.2.1-rc.5",
-    "@deepseek-ai/dsh-client-ui-settings": "0.2.1-rc.5",
-    "@deepseek-ai/schemastery": "^3.18.5"
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-client-locale": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.2-rc.1",
+    "@deepseek-ai/schemastery": "~3.19.0"
   },
   "packageManager": "pnpm@11.20.0"
 }
